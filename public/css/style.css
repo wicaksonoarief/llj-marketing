@@ -1,0 +1,210 @@
+/* LLJ Marketing — static site styles
+   Desktop design: 1440px frame, 126px side margins. Mobile design: 390px, 24px side margins. */
+
+:root {
+  --navy: #05263a;
+  --teal: #00999d;
+  --teal-dark: #007d80;
+  --tint: #e6f4f4;
+  --line: #c8d3db;
+  --maxw: 1188px;
+  --gut: 24px;
+}
+
+*, *::before, *::after { box-sizing: border-box; }
+
+html { scroll-behavior: smooth; -webkit-text-size-adjust: 100%; }
+
+body {
+  margin: 0;
+  min-height: 100vh;
+  font-family: "Poppins", system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+  font-size: 1rem;
+  line-height: 1.6;
+  color: var(--navy);
+  background: linear-gradient(160deg, #ffffff 0%, #eef4f8 50%, #e0ebf2 100%);
+  background-attachment: scroll;
+}
+
+img { max-width: 100%; height: auto; display: block; }
+
+a { color: inherit; }
+
+.wrap { width: min(var(--maxw), calc(100% - 2 * var(--gut))); margin-inline: auto; }
+
+.skip-link {
+  position: absolute; left: -9999px; top: 0; background: var(--navy); color: #fff; padding: 8px 16px; z-index: 100;
+}
+.skip-link:focus { left: 8px; top: 8px; }
+
+:focus-visible { outline: 3px solid var(--teal); outline-offset: 3px; border-radius: 4px; }
+
+/* ---------- Header ---------- */
+.site-header { position: relative; z-index: 20; padding-top: 20px; }
+.site-header .wrap { display: flex; align-items: center; justify-content: space-between; gap: 24px; }
+.logo img { height: 44px; width: auto; }
+
+.site-nav ul { display: flex; gap: 56px; margin: 0; padding: 0; list-style: none; }
+.site-nav a { font-weight: 700; font-size: 1.125rem; text-decoration: none; padding: 6px 0; border-bottom: 2px solid transparent; }
+.site-nav a:hover, .site-nav a[aria-current="page"] { border-bottom-color: var(--teal); }
+
+.menu-toggle {
+  display: none; background: none; border: 0; padding: 8px; cursor: pointer; border-radius: 8px;
+}
+.menu-toggle .bars { display: grid; gap: 6px; }
+.menu-toggle .bars span { display: block; width: 28px; height: 3px; border-radius: 2px; background: var(--navy); transition: transform .2s, opacity .2s; }
+.menu-toggle[aria-expanded="true"] .bars span:nth-child(1) { transform: translateY(9px) rotate(45deg); }
+.menu-toggle[aria-expanded="true"] .bars span:nth-child(2) { opacity: 0; }
+.menu-toggle[aria-expanded="true"] .bars span:nth-child(3) { transform: translateY(-9px) rotate(-45deg); }
+
+/* ---------- Typography ---------- */
+h1, h2, h3 { line-height: 1.15; margin: 0; }
+h1, h2 { font-weight: 700; font-size: clamp(2.25rem, 4.2vw, 3.75rem); }
+h2.section-title { font-size: clamp(1.75rem, 4.2vw, 3.75rem); }
+.subtitle { font-weight: 700; font-size: clamp(1.125rem, 1.8vw, 1.625rem); margin: 0; line-height: 1.3; }
+.lead { font-size: clamp(.9375rem, 1.4vw, 1.25rem); margin: 0; }
+.lead strong { font-weight: 700; }
+p { margin: 0; }
+.stack > * + * { margin-top: 12px; }
+
+/* ---------- Buttons ---------- */
+.btn {
+  display: inline-flex; align-items: center; justify-content: center;
+  min-width: 144px; min-height: 54px; padding: 0 32px; border-radius: 999px;
+  background: var(--teal); color: var(--navy); font-weight: 700; font-size: 1.25rem; text-decoration: none;
+  transition: background .15s;
+}
+.btn:hover { background: var(--teal-dark); color: #fff; }
+.btn-row { display: flex; flex-wrap: wrap; gap: 16px; }
+
+/* ---------- Phone image (cropped around the phone, works with any container width) ---------- */
+.phone {
+  position: relative; overflow: hidden; aspect-ratio: 342 / 300; width: 100%;
+  /* soft fade on the edges so the crop never shows a hard line through the shadow */
+  -webkit-mask-image: linear-gradient(to right, transparent, #000 14%, #000 86%, transparent), linear-gradient(to bottom, transparent, #000 8%, #000 90%, transparent);
+  -webkit-mask-composite: source-in;
+  mask-image: linear-gradient(to right, transparent, #000 14%, #000 86%, transparent), linear-gradient(to bottom, transparent, #000 8%, #000 90%, transparent);
+  mask-composite: intersect;
+}
+.phone img {
+  position: absolute; left: 50%; top: 50%; width: var(--zoom, 140%); max-width: none; height: auto;
+  transform: translate(-50%, -50%);
+}
+
+/* ---------- Home ---------- */
+.hero { padding: 32px 0 64px; }
+.hero .wrap { display: grid; gap: 24px; }
+.hero-text { display: grid; gap: 14px; align-content: center; }
+.hero-text .btn-row { margin-top: 18px; }
+.hero .phone { --zoom: 137%; }
+
+/* ---------- About ---------- */
+.about { padding: 32px 0 72px; }
+.about-grid { display: grid; gap: 32px; }
+.about-grid .phone { --zoom: 140%; }
+.about-intro, .about-rest { display: grid; gap: 32px; align-content: start; }
+.block { display: grid; gap: 12px; }
+.block h3 { font-size: clamp(1.125rem, 1.8vw, 1.625rem); font-weight: 700; }
+.block p + p { margin-top: 10px; }
+
+/* ---------- Pricelist ---------- */
+.pricelist { padding: 32px 0 24px; }
+.pricelist h1 { margin-bottom: 24px; }
+.tables { display: grid; gap: 32px; align-items: start; }
+.tables-col { display: grid; gap: 32px; }
+.table-block h3 { font-size: 1.125rem; margin-bottom: 8px; }
+
+.table-card { background: #fff; border: 1.5px solid var(--navy); border-radius: 12px; overflow: hidden; }
+.price-table { width: 100%; border-collapse: collapse; font-size: 1rem; }
+.price-table thead th { background: var(--teal); color: #fff; padding: 10px 16px; text-align: center; font-weight: 700; }
+.price-table tbody th, .price-table tbody td { padding: 6px 16px; border-bottom: 1px solid var(--line); border-right: 1px solid var(--line); }
+.price-table tbody th.device { text-align: left; font-weight: 400; width: 44%; vertical-align: middle; }
+.price-table td.num { text-align: right; font-variant-numeric: tabular-nums; white-space: nowrap; }
+.price-table td.region { text-align: center; font-weight: 700; font-size: 2rem; border-right: 0; vertical-align: middle; }
+.price-table tbody tr:last-child > *, .price-table tbody th.last, .price-table tbody td.region { border-bottom: 0; }
+
+.why { padding: 56px 0 16px; }
+.why h2 { margin-bottom: 20px; }
+.why ul { margin: 0; padding-left: 22px; display: grid; gap: 10px; font-size: clamp(.9375rem, 1.4vw, 1.25rem); }
+.why strong { font-weight: 700; }
+.ship { padding: 40px 0 80px; display: grid; gap: 12px; }
+
+/* ---------- Contact ---------- */
+.contact { padding: 32px 0 80px; display: grid; gap: 40px; }
+.contact h1 { font-size: clamp(1.75rem, 3vw, 2.5rem); }
+.contact h2.section-title { font-size: clamp(1.625rem, 3vw, 2.5rem); }
+.phone-link { display: inline-flex; align-items: center; gap: 14px; font-weight: 700; font-size: clamp(1.0625rem, 1.5vw, 1.25rem); text-decoration: underline; }
+.phone-link .icon { flex: none; width: 48px; height: 48px; border-radius: 50%; background: var(--navy); display: grid; place-items: center; }
+.phone-link svg { width: 26px; height: 26px; fill: #fff; }
+.location { display: grid; gap: 20px; align-items: center; }
+.map-link { display: block; width: 240px; }
+.map-link img { width: 100%; border-radius: 16px; }
+.company { font-weight: 700; font-size: clamp(1.375rem, 4vw, 3.75rem); line-height: 1.1; margin: 0 0 8px; }
+address { font-style: normal; font-size: clamp(.9375rem, 1.4vw, 1.25rem); }
+
+/* ---------- Tablet / desktop ---------- */
+@media (min-width: 861px) {
+  .site-header { padding-top: 55px; }
+  .logo img { height: 61px; }
+
+  .hero { padding: 40px 0 96px; }
+  .hero .wrap { grid-template-columns: 1.05fr 1fr; align-items: center; gap: 24px; }
+  .hero .phone { aspect-ratio: 588 / 660; --zoom: 172%; }
+  .hero-text { gap: 18px; }
+  .hero-text .lead { max-width: 620px; }
+
+  .about { padding: 64px 0 96px; }
+  .pricelist { padding-top: 64px; }
+  .about-grid {
+    grid-template-columns: minmax(0, 1fr) 460px; column-gap: 64px; row-gap: 40px;
+    grid-template-areas: "intro phone" "rest phone";
+  }
+  .about-intro { grid-area: intro; }
+  .about-grid .phone { grid-area: phone; align-self: center; aspect-ratio: 460 / 640; --zoom: 205%; }
+  .about-rest { grid-area: rest; }
+  .about-intro .lead, .about-rest p { max-width: 740px; }
+
+  .tables { grid-template-columns: 1fr 1fr; gap: 32px; }
+  .contact { gap: 56px; padding-top: 64px; }
+  .location { grid-template-columns: 253px 1fr; gap: 24px; }
+  .map-link { width: 253px; }
+}
+
+/* ---------- Mobile ---------- */
+@media (max-width: 860px) {
+  .menu-toggle { display: block; }
+  .site-nav {
+    position: absolute; left: 0; right: 0; top: 100%; background: #fff; border-top: 1px solid var(--line);
+    box-shadow: 0 12px 24px rgba(5, 38, 58, .12); display: none;
+  }
+  .site-nav.is-open { display: block; }
+  .site-nav ul { flex-direction: column; gap: 0; padding: 8px var(--gut) 16px; width: min(var(--maxw), 100%); margin-inline: auto; }
+  .site-nav a { display: block; padding: 14px 0; border-bottom: 1px solid var(--line); font-size: 1.125rem; }
+  .site-nav li:last-child a { border-bottom: 0; }
+  .site-header .wrap { position: relative; }
+  .site-header { position: relative; }
+}
+
+@media (max-width: 720px) {
+  .tables { gap: 24px; }
+  .table-card { border-radius: 14px; }
+  .price-table thead { display: none; }
+  .price-table, .price-table tbody, .price-table tr { display: block; }
+  .price-table tr { display: grid; grid-template-columns: 1fr auto; }
+  .price-table tbody th.device {
+    grid-column: 1 / -1; background: var(--tint); font-weight: 700; width: auto; padding: 8px 16px; border-right: 0;
+  }
+  .price-table tbody td { padding: 9px 16px; border-right: 0; }
+  .price-table td.storage { text-align: left; }
+  .price-table td.price { font-weight: 700; }
+  .price-table td.region { display: none; }
+  .price-table tbody th.last { border-bottom: 1px solid var(--line); }
+  .price-table tbody tr:last-child > td { border-bottom: 0; }
+  .price-table tbody tr:last-child { border-bottom: 0; }
+  .btn-row .btn { flex: 0 0 auto; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+  * { transition: none !important; }
+}
